@@ -6,6 +6,10 @@ find_package(catkin REQUIRED COMPONENTS
   rospy
 )
 
+install(DIRECTORY launch/
+    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/launch
+)
+
 catkin_python_setup()
 
 catkin_package()

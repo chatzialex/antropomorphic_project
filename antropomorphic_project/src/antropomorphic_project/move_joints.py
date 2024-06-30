@@ -9,7 +9,6 @@ type: std_msgs/Float64
 /antropomorphic_arm/joint1_position_controller/command
 /antropomorphic_arm/joint2_position_controller/command
 /antropomorphic_arm/joint3_position_controller/command
-​
 """
 
 class JointMover(object):
