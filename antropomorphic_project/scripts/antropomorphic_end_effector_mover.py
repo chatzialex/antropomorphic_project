@@ -16,6 +16,9 @@ class AntopomorphicEEMover(object):
   def __init__(self, wait_reach_goal=True):
     rospy.loginfo("Initializing AntropomorphicEEMover...")
 
+    self.robot_mover = JointMover()
+    self.ik_solver = AntropomorphicIk()
+
     self.ee_pose_sub = rospy.Subscriber("/end_effector_real_pose", Vector3, self.eePoseCallback)
     self.ee_pose = self.getFirstMessage("/end_effector_real_pose", Vector3)
 
@@ -24,8 +27,6 @@ class AntopomorphicEEMover(object):
 
     self.markerbasics_object = MarkerBasics()
     self.unique_marker_index = 0
-    self.robot_mover = JointMover()
-    self.ik_solver = AntropomorphicIk()
 
     rospy.loginfo("AntropomorphicEEMover initialized.")
 
