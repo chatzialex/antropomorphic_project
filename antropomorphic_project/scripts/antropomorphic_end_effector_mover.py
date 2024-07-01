@@ -56,9 +56,22 @@ class AntopomorphicEEMover(object):
 
     if not thetas_possible:
       return None
-    else:
-      return min(thetas_possible,
-        key=lambda v: dist(v, [self.ee_pose.x, self.ee_pose.y, self.ee_pose.z]))
+
+    if ee_cmd.elbow_policy.data == "plus-plus":
+      thetas_goal = thetas_array[0]
+    elif ee_cmd.elbow_policy.data == "plus-minus":
+      thetas_goal = thetas_array[1]
+    elif ee_cmd.elbow_policy.data == "minus-plus":
+      thetas_goal = thetas_array[2]
+    elif ee_cmd.elbow_policy.data == "minus-minus":
+      thetas_goal = thetas_array[3]
+    else:  # default
+      thetas_goal = thetas_array[1]
+
+    # use the desired policy if possible, or the closest
+    # possible configuration (by L2 norm) otherwise
+    return min(thetas_possible,
+        key=lambda v: dist(v, thetas_goal))
 
   def eePoseCallback(self,msg):
     self.ee_pose = msg
